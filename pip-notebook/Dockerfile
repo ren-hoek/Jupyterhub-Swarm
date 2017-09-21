@@ -99,21 +99,22 @@ WORKDIR $HOME
 ENTRYPOINT ["tini", "--"]
 CMD ["start-notebook.sh"]
 
+
+#COPY install.r /tmp/R/
+#RUN R -f /tmp/R/install.r
+#RUN chown -R $NB_USER:users /home/jovyan/.local/
+#RUN mv /home/jovyan/.local/share/jupyter/kernels/ir/ /usr/local/share/jupyter/kernels/
+
+#ADD requirements.txt /home/jovyan
+#RUN pip3 install -r requirements.txt
+#RUN . /py27/bin/activate; pip install -r requirements.txt
+
+
 # Add local files as late as possible to avoid cache busting
 COPY start.sh /usr/local/bin/
 COPY start-notebook.sh /usr/local/bin/
 COPY start-singleuser.sh /usr/local/bin/
 COPY jupyter_notebook_config.py /etc/jupyter/
 RUN chown -R $NB_USER:users /etc/jupyter/
-
-COPY install.r /tmp/R/
-RUN R -f /tmp/R/install.r
-RUN chown -R $NB_USER:users /home/jovyan/.local/
-RUN mv /home/jovyan/.local/share/jupyter/kernels/ir/ /usr/local/share/jupyter/kernels/
-
-ADD requirements.txt /home/jovyan
-RUN pip3 install -r requirements.txt
-RUN . /py27/bin/activate; pip install -r requirements.txt
-
 # Switch back to jovyan to avoid accidental container runs as root
-USER $NB_USER
+#USER $NB_USER

@@ -4,6 +4,9 @@
 
 set -e
 
+# set home directory for notebooks
+export NOTEBOOK_DIR=/home/$JPY_USER
+
 # set default ip to 0.0.0.0
 if [[ "$NOTEBOOK_ARGS $@" != *"--ip="* ]]; then
   NOTEBOOK_ARGS="--ip=0.0.0.0 $NOTEBOOK_ARGS"

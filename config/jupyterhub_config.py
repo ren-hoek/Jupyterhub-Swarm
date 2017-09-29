@@ -20,7 +20,6 @@ c.SwarmSpawner.jupyterhub_service_name = 'jupyterpip'
 c.SwarmSpawner.networks = ["jupyterhub"]
 
 notebook_dir = os.environ.get('NOTEBOOK_DIR') or '/home/jupyter/work'
-#notebook_dir = '/home/gavin'
 c.SwarmSpawner.notebook_dir = notebook_dir
 
 mounts = [{'type': 'volume',
@@ -47,7 +46,7 @@ c.SwarmSpawner.container_spec = {
     # The command to run inside the service
     'args': ['/usr/local/bin/start-singleuser.sh',
         '--NotebookApp.default_url=/lab'],  # (string or list)
-    'Image': 'dec/pip-notebook',
+    'Image': 'jupyter/ds-notebook',
     'mounts': mounts
 }
 

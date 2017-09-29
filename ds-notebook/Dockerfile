@@ -81,6 +81,7 @@ RUN apt-get install -y libv8-3.14-dev libprotobuf-dev libgdal1-dev libproj-dev
 COPY install-packages.r /tmp/R/
 RUN Rscript /tmp/R/install-packages.r
 
+COPY dotfiles/.* /tmp/dotfiles/ 
 # Add local files as late as possible to avoid cache busting
 COPY start.sh /usr/local/bin/
 COPY start-notebook.sh /usr/local/bin/

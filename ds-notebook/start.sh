@@ -11,6 +11,9 @@ if [ $(id -u) == 0 ] ; then
 
     NB_USER=$JPY_USER
     mkdir /home/$JPY_USER
+    cp /tmp/dotfiles/.bashrc /home/$JPY_USER
+    cp /tmp/dotfiles/.vimrc /home/$JPY_USER
+    cp /tmp/dotfiles/.tmux.conf /home/$JPY_USER
     chown -R $JPY_USER:$JPY_USER /home/$JPY_USER
     cd /home/$JPY_USER
 

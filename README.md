@@ -18,8 +18,8 @@ Based on [jupyterhub](https://github.com/jupyterhub/jupyterhub) and [SwarmSpawne
 git clone <repo>
 cd Jupyterhub-Swarm
 docker build -t jupyterpip .
-cd pip-notebook
-docker build -t jupyter/pip-notebook
+cd ds-notebook
+docker build -t jupyter/ds-notebook
 cd ..
 ```
 

@@ -62,6 +62,11 @@ COPY install.r /tmp/R/
 RUN R -f /tmp/R/install.r
 RUN mv /root/.local/share/jupyter/kernels/ir/ /usr/local/share/jupyter/kernels/
 
+RUN apt-get -y update
+RUN apt-get install -y gdebi-core libcurl4-openssl-dev libssl-dev libzmq3-dev libssl-dev libsasl2-dev
+RUN apt-get install -y libssl-dev libffi-dev libgsl-dev
+RUN apt-get install -y libv8-3.14-dev libprotobuf-dev libgdal1-dev libproj-dev
+
 ADD requirements.txt /tmp/python/
 RUN pip3 install --no-cache-dir -r /tmp/python/requirements.txt
 RUN . /py27/bin/activate; pip install --no-cache-dir -r /tmp/python/requirements.txt
@@ -73,15 +78,17 @@ RUN apt-get -y install vim tmux git
 RUN python3 -m spacy download en
 RUN . /py27/bin/activate; python -m spacy download en
 
-RUN apt-get -y update
-RUN apt-get install -y gdebi-core libcurl4-openssl-dev libssl-dev libzmq3-dev libssl-dev libsasl2-dev
-RUN apt-get install -y libssl-dev libffi-dev libgsl-dev
-RUN apt-get install -y libv8-3.14-dev libprotobuf-dev libgdal1-dev libproj-dev
-
 COPY install-packages.r /tmp/R/
 RUN Rscript /tmp/R/install-packages.r
 
+COPY lab/jupyterlab-theme-light-extension/variables.css /usr/local/lib/python3.5/dist-packages/jupyterlab/themes/jupyterlab-theme-light-extension/
+COPY lab/jupyterlab-theme-light-extension/roboto-mono.css /usr/local/lib/python3.5/dist-packages/jupyterlab/themes/jupyterlab-theme-light-extension/
+
+COPY lab/jupyterlab-theme-dark-extension/variables.css /usr/local/lib/python3.5/dist-packages/jupyterlab/themes/jupyterlab-theme-dark-extension/
+COPY lab/jupyterlab-theme-dark-extension/roboto-mono.css /usr/local/lib/python3.5/dist-packages/jupyterlab/themes/jupyterlab-theme-dark-extension/
+
 COPY dotfiles/.* /tmp/dotfiles/ 
+
 # Add local files as late as possible to avoid cache busting
 COPY start.sh /usr/local/bin/
 COPY start-notebook.sh /usr/local/bin/

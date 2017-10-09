@@ -31,3 +31,4 @@ pillow
 bokeh
 statsmodels
 opencv-python
+pixiedust
